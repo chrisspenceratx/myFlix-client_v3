@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "default": "src/index.html",
+  "alias": {
+    "process": false
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
