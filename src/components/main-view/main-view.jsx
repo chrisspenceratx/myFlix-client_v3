@@ -20,7 +20,7 @@ export class MainView extends React.Component {
                 "Bio": "One of the most influential personalities in the history of cinema, Steven Spielberg is Hollywood\'s best known director and one of the wealthiest filmmakers in the world. He has an extraordinary number of commercially successful and critically acclaimed credits to his name, either as a director, producer or writer since launching the summer blockbuster with Jaws (1975), and he has done more to define popular film-making since the mid-1970s than anyone else.",
                 "Birth": 1946
               },
-              "ImageURL": "https://en.wikipedia.org/wiki/E.T._the_Extra-Terrestrial#/media/File:E_t_the_extra_terrestrial_ver3.jpg",
+              "ImageURL": "https://upload.wikimedia.org/wikipedia/en/6/66/E_t_the_extra_terrestrial_ver3.jpg",
               "Featured": false
             },
           
@@ -82,14 +82,4 @@ export class MainView extends React.Component {
           </div>
         );
       }
-
-//   render() {
-//     return (
-//       <div className="main-view">
-//         <div>Inception</div>
-//         <div>The Shawshank Redemption</div>
-//         <div>Gladiator</div>
-//       </div>
-//     );
-//   }
 }
