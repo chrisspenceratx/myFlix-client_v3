@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
-
 import { MainView } from './components/main-view/main-view.jsx';
 import { MovieCard } from './components/movie-card/movie-card';
 
