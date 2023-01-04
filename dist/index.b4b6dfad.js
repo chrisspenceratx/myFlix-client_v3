@@ -27139,21 +27139,6 @@ class MainView extends (0, _reactDefault.default).Component {
         this.state = {
             movies: [
                 {
-                    "Title": "E.T",
-                    "Description": "E.T. is a 1982 American\xa0science fiction film\xa0produced and directed by\xa0Steven Spielberg\xa0and written by\xa0Melissa Mathison. It tells the story of Elliott, a boy who befriends an\xa0extraterrestrial\xa0dubbed E.T., who is left behind on Earth.",
-                    "Genre": {
-                        "Name": "Drama",
-                        "Description": "In film and television, drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone.[1] Drama of this kind is usually qualified with additional terms that specify its particular super-genre, macro-genre, or micro-genre,[2] such as soap opera, police crime drama, political drama, legal drama, historical drama, domestic drama, teen drama, and comedy-drama (dramedy). These terms tend to indicate a particular setting or subject-matter, or else they qualify the otherwise serious tone of a drama with elements that encourage a broader range of moods. To these ends, a primary element in a drama is the occurrence of conflict—emotional, social, or otherwise—and its resolution in the course of the storyline."
-                    },
-                    "Director": {
-                        "Name": "Steven Spielberg",
-                        "Bio": "One of the most influential personalities in the history of cinema, Steven Spielberg is Hollywood's best known director and one of the wealthiest filmmakers in the world. He has an extraordinary number of commercially successful and critically acclaimed credits to his name, either as a director, producer or writer since launching the summer blockbuster with Jaws (1975), and he has done more to define popular film-making since the mid-1970s than anyone else.",
-                        "Birth": 1946
-                    },
-                    "ImageURL": "https://upload.wikimedia.org/wikipedia/en/6/66/E_t_the_extra_terrestrial_ver3.jpg",
-                    "Featured": false
-                },
-                {
                     "Title": "Animal World",
                     "Description": "A man finds himself deep in debt and is coerced to board a ship that hosts a risky gambling party.",
                     "Genre": {
@@ -27198,7 +27183,7 @@ class MainView extends (0, _reactDefault.default).Component {
             children: "The list is empty!"
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 72,
+            lineNumber: 57,
             columnNumber: 41
         }, this);
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27210,7 +27195,7 @@ class MainView extends (0, _reactDefault.default).Component {
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 77,
+                lineNumber: 62,
                 columnNumber: 17
             }, this) : movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                     movie: movie,
@@ -27219,12 +27204,12 @@ class MainView extends (0, _reactDefault.default).Component {
                     }
                 }, movie._id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 79,
+                    lineNumber: 64,
                     columnNumber: 17
                 }, this))
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 75,
+            lineNumber: 60,
             columnNumber: 11
         }, this);
     }
