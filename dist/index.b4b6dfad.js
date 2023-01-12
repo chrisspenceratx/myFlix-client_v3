@@ -2770,14 +2770,20 @@ var _indexScss = require("./index.scss");
 // Main component (will eventually use all the others)
 class MyFlixApplication extends (0, _reactDefault.default).Component {
     render() {
-        return(// <div className="my-flix">
-        //   <div>Good morning</div>
-        // </div>
-        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _mainViewJsx.MainView), {}, void 0, false, {
+        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "my-flix",
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: "Good morning"
+            }, void 0, false, {
+                fileName: "src/index.jsx",
+                lineNumber: 16,
+                columnNumber: 9
+            }, this)
+        }, void 0, false, {
             fileName: "src/index.jsx",
-            lineNumber: 18,
+            lineNumber: 15,
             columnNumber: 7
-        }, this));
+        }, this);
     }
 }
 // Finds the root of your app
@@ -27134,41 +27140,11 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
 class MainView extends (0, _reactDefault.default).Component {
+    // 3.4 - Temporarily delete hardcoded movie array //
     constructor(){
         super();
         this.state = {
-            movies: [
-                {
-                    "Title": "Animal World",
-                    "Description": "A man finds himself deep in debt and is coerced to board a ship that hosts a risky gambling party.",
-                    "Genre": {
-                        "Name": "Action",
-                        "Description": "Action film is a film genre in which the protagonist is thrust into a series of events that typically involve violence and physical feats. The genre tends to feature a mostly resourceful hero struggling against incredible odds, which include life-threatening situations, a dangerous villain, or a pursuit which usually concludes in victory for the hero."
-                    },
-                    "Director": {
-                        "Name": "Yan Han",
-                        "Bio": "We don't have a biography for Yan Han.",
-                        "Birth": 1983
-                    },
-                    "ImageURL": "https://upload.wikimedia.org/wikipedia/en/0/06/Animal_World_Movie_2018.jpg",
-                    "Featured": false
-                },
-                {
-                    "Title": "Joker",
-                    "Description": "A mentally troubled stand-up comedian embarks on a downward spiral that leads to the creation of an iconic villain.",
-                    "Genre": {
-                        "Name": "Crime",
-                        "Description": "Crime fiction, detective story, murder mystery, mystery novel, and police novel are terms used to describe narratives that centre on criminal acts and especially on the investigation, either by an amateur or a professional detective, of a crime, often a murder.[1] It is usually distinguished from mainstream fiction and other genres such as historical fiction or science fiction, but the boundaries are indistinct. Crime fiction has multiple subgenres,[2] including detective fiction (such as the whodunit), courtroom drama, hard-boiled fiction, and legal thrillers. Most crime drama focuses on crime investigation and does not feature the courtroom. Suspense and mystery are key elements that are nearly ubiquitous to the genre."
-                    },
-                    "Director": {
-                        "Name": "Todd Phillips",
-                        "Bio": "Todd Phillips is an American filmmaker and actor who got his start by directing the comedy films Road Trip and Old School, the earlier inspired EuroTrip. He also directed Starsky & Hutch, The Hangover trilogy, Due Date, War Dogs and School for Scoundrels. Phillips directed Joker, a Taxi Driver style film set in the universe of Batman and starring Joaquin Phoenix. Joker is the highest grossing R-rated film of all time.",
-                        "Birth": 1970
-                    },
-                    "ImageURL": "https://upload.wikimedia.org/wikipedia/en/e/e1/Joker_%282019_film%29_poster.jpg",
-                    "Featured": false
-                }
-            ]
+            movies: []
         };
     }
     setSelectedMovie(newSelectedMovie) {
@@ -27183,7 +27159,7 @@ class MainView extends (0, _reactDefault.default).Component {
             children: "The list is empty!"
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 57,
+            lineNumber: 27,
             columnNumber: 41
         }, this);
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27195,7 +27171,7 @@ class MainView extends (0, _reactDefault.default).Component {
                 }
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 62,
+                lineNumber: 32,
                 columnNumber: 17
             }, this) : movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
                     movie: movie,
@@ -27204,12 +27180,12 @@ class MainView extends (0, _reactDefault.default).Component {
                     }
                 }, movie._id, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 64,
+                    lineNumber: 34,
                     columnNumber: 17
                 }, this))
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 60,
+            lineNumber: 30,
             columnNumber: 11
         }, this);
     }
