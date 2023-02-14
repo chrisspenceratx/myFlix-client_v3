@@ -142,9 +142,9 @@
       this[globalName] = mainExports;
     }
   }
-})({"k65zC":[function(require,module,exports) {
-var Refresh = require("react-refresh/runtime");
-var ErrorOverlay = require("react-error-overlay");
+})({"1xC6H":[function(require,module,exports) {
+var Refresh = require("49a4172181612625");
+var ErrorOverlay = require("cd6ed0e994c6dbf4");
 Refresh.injectIntoGlobalHook(window);
 window.$RefreshReg$ = function() {};
 window.$RefreshSig$ = function() {
@@ -163,11 +163,11 @@ window.addEventListener("parcelhmraccept", ()=>{
     ErrorOverlay.dismissRuntimeErrors();
 });
 
-},{"react-refresh/runtime":"7LnTi","react-error-overlay":"hlmUn"}],"7LnTi":[function(require,module,exports) {
+},{"49a4172181612625":"786KC","cd6ed0e994c6dbf4":"1dldy"}],"786KC":[function(require,module,exports) {
 "use strict";
-module.exports = require("./cjs/react-refresh-runtime.development.js");
+module.exports = require("580fdfbc0d1f45d1");
 
-},{"./cjs/react-refresh-runtime.development.js":"h0pm8"}],"h0pm8":[function(require,module,exports) {
+},{"580fdfbc0d1f45d1":"hdge7"}],"hdge7":[function(require,module,exports) {
 /** @license React v0.9.0
  * react-refresh-runtime.development.js
  *
@@ -627,8 +627,8 @@ module.exports = require("./cjs/react-refresh-runtime.development.js");
     exports.setSignature = setSignature;
 })();
 
-},{}],"hlmUn":[function(require,module,exports) {
-var process = require("process");
+},{}],"1dldy":[function(require,module,exports) {
+var process = require("ac92731a9f4617b9");
 !function(e, t) {
     module.exports = t();
 }(window, function() {
@@ -1043,7 +1043,7 @@ var process = require("process");
                 }
                 try {
                     u({}, "");
-                } catch (e1) {
+                } catch (e) {
                     u = function(e, t, r) {
                         return e[t] = r;
                     };
@@ -1092,10 +1092,10 @@ var process = require("process");
                             type: "normal",
                             arg: e.call(t, r)
                         };
-                    } catch (e1) {
+                    } catch (e) {
                         return {
                             type: "throw",
-                            arg: e1
+                            arg: e
                         };
                     }
                 }
@@ -1314,7 +1314,7 @@ var process = require("process");
             }(e.exports);
             try {
                 regeneratorRuntime = n;
-            } catch (e1) {
+            } catch (e) {
                 Function("r", "regeneratorRuntime = r")(n);
             }
         },
@@ -1835,9 +1835,9 @@ var process = require("process");
                         try {
                             var e = arguments[0];
                             "string" == typeof e && d.length > 0 && t(e, d[d.length - 1]);
-                        } catch (e1) {
+                        } catch (e) {
                             setTimeout(function() {
-                                throw e1;
+                                throw e;
                             });
                         }
                         return r.apply(this, arguments);
@@ -1968,8 +1968,8 @@ var process = require("process");
             function N(e, t, r, n, o, a, i) {
                 try {
                     var l = e[a](i), u = l.value;
-                } catch (e1) {
-                    return void r(e1);
+                } catch (e) {
+                    return void r(e);
                 }
                 l.done ? t(u) : Promise.resolve(u).then(n, o);
             }
@@ -2233,7 +2233,7 @@ var process = require("process");
                     var e = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : f;
                     if (!c) try {
                         s = Error.stackTraceLimit, Error.stackTraceLimit = e, c = !0;
-                    } catch (e1) {}
+                    } catch (e) {}
                 }(), p(), g("error", function(e, n) {
                     var o = function(e, t) {
                         for(var r, n, o = function(e) {
@@ -2358,10 +2358,10 @@ var process = require("process");
     ]);
 });
 
-},{"process":"aJCxJ"}],"aJCxJ":[function(require,module,exports) {
+},{"ac92731a9f4617b9":"jhUEF"}],"jhUEF":[function(require,module,exports) {
 "use strict";
 
-},{}],"fcitV":[function(require,module,exports) {
+},{}],"7a1Sg":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
@@ -2377,7 +2377,7 @@ import type {
 interface ParcelRequire {
   (string): mixed;
   cache: {|[string]: ParcelModule|};
-  hotData: mixed;
+  hotData: {|[string]: mixed|};
   Module: any;
   parent: ?ParcelRequire;
   isParcelRequire: true;
@@ -2419,7 +2419,7 @@ var OldModule = module.bundle.Module;
 function Module(moduleName) {
     OldModule.call(this, moduleName);
     this.hot = {
-        data: module.bundle.hotData,
+        data: module.bundle.hotData[moduleName],
         _acceptCallbacks: [],
         _disposeCallbacks: [],
         accept: function(fn) {
@@ -2429,10 +2429,11 @@ function Module(moduleName) {
             this._disposeCallbacks.push(fn);
         }
     };
-    module.bundle.hotData = undefined;
+    module.bundle.hotData[moduleName] = undefined;
 }
 module.bundle.Module = Module;
-var checkedAssets, acceptedAssets, assetsToAccept /*: Array<[ParcelRequire, string]> */ ;
+module.bundle.hotData = {};
+var checkedAssets, assetsToDispose, assetsToAccept /*: Array<[ParcelRequire, string]> */ ;
 function getHostname() {
     return HMR_HOST || (location.protocol.indexOf("http") === 0 ? location.hostname : "localhost");
 }
@@ -2455,8 +2456,8 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
     } // $FlowFixMe
     ws.onmessage = async function(event) {
         checkedAssets = {} /*: {|[string]: boolean|} */ ;
-        acceptedAssets = {} /*: {|[string]: boolean|} */ ;
         assetsToAccept = [];
+        assetsToDispose = [];
         var data = JSON.parse(event.data);
         if (data.type === "update") {
             // Remove error overlay if there is one
@@ -2468,10 +2469,22 @@ if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== "undefined") {
             if (handled) {
                 console.clear(); // Dispatch custom event so other runtimes (e.g React Refresh) are aware.
                 if (typeof window !== "undefined" && typeof CustomEvent !== "undefined") window.dispatchEvent(new CustomEvent("parcelhmraccept"));
-                await hmrApplyUpdates(assets);
-                for(var i = 0; i < assetsToAccept.length; i++){
-                    var id = assetsToAccept[i][1];
-                    if (!acceptedAssets[id]) hmrAcceptRun(assetsToAccept[i][0], id);
+                await hmrApplyUpdates(assets); // Dispose all old assets.
+                let processedAssets = {} /*: {|[string]: boolean|} */ ;
+                for(let i = 0; i < assetsToDispose.length; i++){
+                    let id = assetsToDispose[i][1];
+                    if (!processedAssets[id]) {
+                        hmrDispose(assetsToDispose[i][0], id);
+                        processedAssets[id] = true;
+                    }
+                } // Run accept callbacks. This will also re-execute other disposed assets in topological order.
+                processedAssets = {};
+                for(let i = 0; i < assetsToAccept.length; i++){
+                    let id = assetsToAccept[i][1];
+                    if (!processedAssets[id]) {
+                        hmrAccept(assetsToAccept[i][0], id);
+                        processedAssets[id] = true;
+                    }
                 }
             } else fullReload();
         }
@@ -2724,30 +2737,42 @@ function hmrAcceptCheckOne(bundle, id, depsByBundle) {
     if (checkedAssets[id]) return true;
     checkedAssets[id] = true;
     var cached = bundle.cache[id];
-    assetsToAccept.push([
+    assetsToDispose.push([
         bundle,
         id
     ]);
-    if (!cached || cached.hot && cached.hot._acceptCallbacks.length) return true;
+    if (!cached || cached.hot && cached.hot._acceptCallbacks.length) {
+        assetsToAccept.push([
+            bundle,
+            id
+        ]);
+        return true;
+    }
 }
-function hmrAcceptRun(bundle, id) {
+function hmrDispose(bundle, id) {
     var cached = bundle.cache[id];
-    bundle.hotData = {};
-    if (cached && cached.hot) cached.hot.data = bundle.hotData;
+    bundle.hotData[id] = {};
+    if (cached && cached.hot) cached.hot.data = bundle.hotData[id];
     if (cached && cached.hot && cached.hot._disposeCallbacks.length) cached.hot._disposeCallbacks.forEach(function(cb) {
-        cb(bundle.hotData);
+        cb(bundle.hotData[id]);
     });
     delete bundle.cache[id];
-    bundle(id);
-    cached = bundle.cache[id];
+}
+function hmrAccept(bundle, id) {
+    // Execute the module.
+    bundle(id); // Run the accept callbacks in the new version of the module.
+    var cached = bundle.cache[id];
     if (cached && cached.hot && cached.hot._acceptCallbacks.length) cached.hot._acceptCallbacks.forEach(function(cb) {
         var assetsToAlsoAccept = cb(function() {
             return getParents(module.bundle.root, id);
         });
-        if (assetsToAlsoAccept && assetsToAccept.length) // $FlowFixMe[method-unbinding]
-        assetsToAccept.push.apply(assetsToAccept, assetsToAlsoAccept);
+        if (assetsToAlsoAccept && assetsToAccept.length) {
+            assetsToAlsoAccept.forEach(function(a) {
+                hmrDispose(a[0], a[1]);
+            }); // $FlowFixMe[method-unbinding]
+            assetsToAccept.push.apply(assetsToAccept, assetsToAlsoAccept);
+        }
     });
-    acceptedAssets[id] = true;
 }
 
 },{}],"d8Dch":[function(require,module,exports) {
@@ -2789,11 +2814,11 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./components/main-view/main-view":"4gflv","./index.scss":"lJZlQ","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"6ZIFf","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"aRELh"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./components/main-view/main-view":"4gflv","./index.scss":"lJZlQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
 "use strict";
-module.exports = require("./cjs/react-jsx-dev-runtime.development.js");
+module.exports = require("a56f88d349711cb");
 
-},{"./cjs/react-jsx-dev-runtime.development.js":"48uCM"}],"48uCM":[function(require,module,exports) {
+},{"a56f88d349711cb":"48uCM"}],"48uCM":[function(require,module,exports) {
 /**
  * @license React
  * react-jsx-dev-runtime.development.js
@@ -2805,7 +2830,7 @@ module.exports = require("./cjs/react-jsx-dev-runtime.development.js");
  */ "use strict";
 (function() {
     "use strict";
-    var React = require("react");
+    var React = require("148c19174bf5e980");
     // ATTENTION
     // When adding new symbols to this file,
     // Please consider also adding to 'react-devtools-shared/src/backend/ReactSymbols'
@@ -3063,16 +3088,16 @@ module.exports = require("./cjs/react-jsx-dev-runtime.development.js");
                 } else {
                     try {
                         Fake.call();
-                    } catch (x1) {
-                        control = x1;
+                    } catch (x) {
+                        control = x;
                     }
                     fn.call(Fake.prototype);
                 }
             } else {
                 try {
                     throw Error();
-                } catch (x2) {
-                    control = x2;
+                } catch (x) {
+                    control = x;
                 }
                 fn();
             }
@@ -3624,11 +3649,11 @@ module.exports = require("./cjs/react-jsx-dev-runtime.development.js");
     exports.jsxDEV = jsxDEV$1;
 })();
 
-},{"react":"21dqq"}],"21dqq":[function(require,module,exports) {
+},{"148c19174bf5e980":"21dqq"}],"21dqq":[function(require,module,exports) {
 "use strict";
-module.exports = require("./cjs/react.development.js");
+module.exports = require("70474f4462c040de");
 
-},{"./cjs/react.development.js":"6YvXz"}],"6YvXz":[function(require,module,exports) {
+},{"70474f4462c040de":"6YvXz"}],"6YvXz":[function(require,module,exports) {
 /**
  * @license React
  * react.development.js
@@ -4921,16 +4946,16 @@ module.exports = require("./cjs/react.development.js");
                 } else {
                     try {
                         Fake.call();
-                    } catch (x1) {
-                        control = x1;
+                    } catch (x) {
+                        control = x;
                     }
                     fn.call(Fake.prototype);
                 }
             } else {
                 try {
                     throw Error();
-                } catch (x2) {
-                    control = x2;
+                } catch (x) {
+                    control = x;
                 }
                 fn();
             }
@@ -5332,9 +5357,9 @@ module.exports = require("./cjs/react.development.js");
                     flushActQueue(queue);
                 }
             }
-        } catch (error1) {
+        } catch (error) {
             popActScope(prevActScopeDepth);
-            throw error1;
+            throw error;
         } finally{
             ReactCurrentActQueue.isBatchingLegacy = prevIsBatchingLegacy;
         }
@@ -5496,7 +5521,7 @@ module.exports = require("./cjs/react.development.js");
 
 },{}],"lOjBx":[function(require,module,exports) {
 "use strict";
-var m = require("react-dom");
+var m = require("338ece571edb47e6");
 var i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
 exports.createRoot = function(c, o) {
     i.usingClientEntryPoint = true;
@@ -5515,7 +5540,7 @@ exports.hydrateRoot = function(c, h, o) {
     }
 };
 
-},{"react-dom":"j6uA9"}],"j6uA9":[function(require,module,exports) {
+},{"338ece571edb47e6":"j6uA9"}],"j6uA9":[function(require,module,exports) {
 "use strict";
 function checkDCE() {
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === "undefined" || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== "function") return;
@@ -5529,9 +5554,9 @@ function checkDCE() {
     // a false positive.
     throw new Error("^_^");
 }
-module.exports = require("./cjs/react-dom.development.js");
+module.exports = require("3ebb80b94352eddc");
 
-},{"./cjs/react-dom.development.js":"3iA9v"}],"3iA9v":[function(require,module,exports) {
+},{"3ebb80b94352eddc":"3iA9v"}],"3iA9v":[function(require,module,exports) {
 /**
  * @license React
  * react-dom.development.js
@@ -5544,8 +5569,8 @@ module.exports = require("./cjs/react-dom.development.js");
 (function() {
     "use strict";
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
-    var React = require("react");
-    var Scheduler = require("scheduler");
+    var React = require("8077fdd596ee5c2b");
+    var Scheduler = require("ac066416f7922c25");
     var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
     var suppressWarning = false;
     function setSuppressWarning(newSuppressWarning) {
@@ -6361,16 +6386,16 @@ module.exports = require("./cjs/react-dom.development.js");
                 } else {
                     try {
                         Fake.call();
-                    } catch (x1) {
-                        control = x1;
+                    } catch (x) {
+                        control = x;
                     }
                     fn.call(Fake.prototype);
                 }
             } else {
                 try {
                     throw Error();
-                } catch (x2) {
-                    control = x2;
+                } catch (x) {
+                    control = x;
                 }
                 fn();
             }
@@ -18141,7 +18166,7 @@ module.exports = require("./cjs/react-dom.development.js");
                             enqueueConcurrentHookUpdateAndEagerlyBailout(fiber, queue, update, lane);
                             return;
                         }
-                    } catch (error1) {} finally{
+                    } catch (error) {} finally{
                         ReactCurrentDispatcher$1.current = prevDispatcher;
                     }
                 }
@@ -22035,8 +22060,8 @@ module.exports = require("./cjs/react-dom.development.js");
                         recordLayoutEffectDuration(current);
                     }
                     else retVal = ref(null);
-                } catch (error1) {
-                    captureCommitPhaseError(current, nearestMountedAncestor, error1);
+                } catch (error) {
+                    captureCommitPhaseError(current, nearestMountedAncestor, error);
                 }
                 if (typeof retVal === "function") error("Unexpected return value from a callback ref in %s. A callback ref should not return a function.", getComponentNameFromFiber(current));
             } else ref.current = null;
@@ -22409,8 +22434,8 @@ module.exports = require("./cjs/react-dom.development.js");
                     var _instance3 = node.stateNode;
                     if (isHidden) hideTextInstance(_instance3);
                     else unhideTextInstance(_instance3, node.memoizedProps);
-                } catch (error1) {
-                    captureCommitPhaseError(finishedWork, finishedWork.return, error1);
+                } catch (error) {
+                    captureCommitPhaseError(finishedWork, finishedWork.return, error);
                 }
             } else if ((node.tag === OffscreenComponent || node.tag === LegacyHiddenComponent) && node.memoizedState !== null && node !== finishedWork) ;
             else if (node.child !== null) {
@@ -22882,14 +22907,14 @@ module.exports = require("./cjs/react-dom.development.js");
                         try {
                             startLayoutEffectTimer();
                             commitHookEffectListUnmount(Layout | HasEffect, finishedWork, finishedWork.return);
-                        } catch (error1) {
-                            captureCommitPhaseError(finishedWork, finishedWork.return, error1);
+                        } catch (error) {
+                            captureCommitPhaseError(finishedWork, finishedWork.return, error);
                         }
                         recordLayoutEffectDuration(finishedWork);
                     } else try {
                         commitHookEffectListUnmount(Layout | HasEffect, finishedWork, finishedWork.return);
-                    } catch (error2) {
-                        captureCommitPhaseError(finishedWork, finishedWork.return, error2);
+                    } catch (error) {
+                        captureCommitPhaseError(finishedWork, finishedWork.return, error);
                     }
                 }
                 return;
@@ -22916,8 +22941,8 @@ module.exports = require("./cjs/react-dom.development.js");
                     var instance = finishedWork.stateNode;
                     try {
                         resetTextContent(instance);
-                    } catch (error3) {
-                        captureCommitPhaseError(finishedWork, finishedWork.return, error3);
+                    } catch (error) {
+                        captureCommitPhaseError(finishedWork, finishedWork.return, error);
                     }
                 }
                 if (flags & Update) {
@@ -22933,8 +22958,8 @@ module.exports = require("./cjs/react-dom.development.js");
                         finishedWork.updateQueue = null;
                         if (updatePayload !== null) try {
                             commitUpdate(_instance4, updatePayload, type, oldProps, newProps, finishedWork);
-                        } catch (error4) {
-                            captureCommitPhaseError(finishedWork, finishedWork.return, error4);
+                        } catch (error) {
+                            captureCommitPhaseError(finishedWork, finishedWork.return, error);
                         }
                     }
                 }
@@ -22951,8 +22976,8 @@ module.exports = require("./cjs/react-dom.development.js");
                     var oldText = current !== null ? current.memoizedProps : newText;
                     try {
                         commitTextUpdate(textInstance, oldText, newText);
-                    } catch (error5) {
-                        captureCommitPhaseError(finishedWork, finishedWork.return, error5);
+                    } catch (error) {
+                        captureCommitPhaseError(finishedWork, finishedWork.return, error);
                     }
                 }
                 return;
@@ -22964,8 +22989,8 @@ module.exports = require("./cjs/react-dom.development.js");
                         var prevRootState = current.memoizedState;
                         if (prevRootState.isDehydrated) try {
                             commitHydratedContainer(root.containerInfo);
-                        } catch (error6) {
-                            captureCommitPhaseError(finishedWork, finishedWork.return, error6);
+                        } catch (error) {
+                            captureCommitPhaseError(finishedWork, finishedWork.return, error);
                         }
                     }
                 }
@@ -22993,8 +23018,8 @@ module.exports = require("./cjs/react-dom.development.js");
                 if (flags & Update) {
                     try {
                         commitSuspenseCallback(finishedWork);
-                    } catch (error7) {
-                        captureCommitPhaseError(finishedWork, finishedWork.return, error7);
+                    } catch (error) {
+                        captureCommitPhaseError(finishedWork, finishedWork.return, error);
                     }
                     attachSuspenseRetryListeners(finishedWork);
                 }
@@ -23452,8 +23477,8 @@ module.exports = require("./cjs/react-dom.development.js");
                 var instance = fiber.stateNode;
                 try {
                     instance.componentDidMount();
-                } catch (error1) {
-                    captureCommitPhaseError(fiber, fiber.return, error1);
+                } catch (error) {
+                    captureCommitPhaseError(fiber, fiber.return, error);
                 }
                 break;
         }
@@ -25347,7 +25372,7 @@ module.exports = require("./cjs/react-dom.development.js");
         new Set([
             nonExtensibleObject
         ]);
-    /* eslint-enable no-new */ } catch (e1) {
+    /* eslint-enable no-new */ } catch (e) {
         // TODO: Consider warning about bad polyfills
         hasBadMapPolyfill = true;
     }
@@ -26516,11 +26541,11 @@ module.exports = require("./cjs/react-dom.development.js");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{"react":"21dqq","scheduler":"juvHo"}],"juvHo":[function(require,module,exports) {
+},{"8077fdd596ee5c2b":"21dqq","ac066416f7922c25":"juvHo"}],"juvHo":[function(require,module,exports) {
 "use strict";
-module.exports = require("./cjs/scheduler.development.js");
+module.exports = require("5674e88d7e6e815");
 
-},{"./cjs/scheduler.development.js":"RqdIf"}],"RqdIf":[function(require,module,exports) {
+},{"5674e88d7e6e815":"RqdIf"}],"RqdIf":[function(require,module,exports) {
 /**
  * @license React
  * scheduler.development.js
@@ -27048,7 +27073,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"aRELh","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"6ZIFf"}],"bwuIu":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"bwuIu":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$67b2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27091,187 +27116,23 @@ $RefreshReg$(_c, "MovieCard");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"aRELh","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"6ZIFf","prop-types":"7wKI2"}],"aRELh":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"6ZIFf":[function(require,module,exports) {
-"use strict";
-var Refresh = require("react-refresh/runtime");
-function debounce(func, delay) {
-    var args;
-    {
-        let timeout = undefined;
-        let lastTime = 0;
-        return function(args) {
-            // Call immediately if last call was more than the delay ago.
-            // Otherwise, set a timeout. This means the first call is fast
-            // (for the common case of a single update), and subsequent updates
-            // are batched.
-            let now = Date.now();
-            if (now - lastTime > delay) {
-                lastTime = now;
-                func.call(null, args);
-            } else {
-                clearTimeout(timeout);
-                timeout = setTimeout(function() {
-                    timeout = undefined;
-                    lastTime = Date.now();
-                    func.call(null, args);
-                }, delay);
-            }
-        };
-    }
-}
-var enqueueUpdate = debounce(function() {
-    Refresh.performReactRefresh();
-}, 30); // Everthing below is either adapted or copied from
-// https://github.com/facebook/metro/blob/61de16bd1edd7e738dd0311c89555a644023ab2d/packages/metro/src/lib/polyfills/require.js
-// MIT License - Copyright (c) Facebook, Inc. and its affiliates.
-module.exports.prelude = function(module1) {
-    window.$RefreshReg$ = function(type, id) {
-        Refresh.register(type, module1.id + " " + id);
-    };
-    window.$RefreshSig$ = Refresh.createSignatureFunctionForTransform;
-};
-module.exports.postlude = function(module1) {
-    if (isReactRefreshBoundary(module1.exports)) {
-        registerExportsForReactRefresh(module1);
-        if (module1.hot) {
-            module1.hot.dispose(function(data) {
-                if (Refresh.hasUnrecoverableErrors()) window.location.reload();
-                data.prevExports = module1.exports;
-            });
-            module1.hot.accept(function(getParents) {
-                var prevExports = module1.hot.data.prevExports;
-                var nextExports = module1.exports; // Since we just executed the code for it, it's possible
-                // that the new exports make it ineligible for being a boundary.
-                var isNoLongerABoundary = !isReactRefreshBoundary(nextExports); // It can also become ineligible if its exports are incompatible
-                // with the previous exports.
-                // For example, if you add/remove/change exports, we'll want
-                // to re-execute the importing modules, and force those components
-                // to re-render. Similarly, if you convert a class component
-                // to a function, we want to invalidate the boundary.
-                var didInvalidate = shouldInvalidateReactRefreshBoundary(prevExports, nextExports);
-                if (isNoLongerABoundary || didInvalidate) {
-                    // We'll be conservative. The only case in which we won't do a full
-                    // reload is if all parent modules are also refresh boundaries.
-                    // In that case we'll add them to the current queue.
-                    var parents = getParents();
-                    if (parents.length === 0) {
-                        // Looks like we bubbled to the root. Can't recover from that.
-                        window.location.reload();
-                        return;
-                    }
-                    return parents;
-                }
-                enqueueUpdate();
-            });
-        }
-    }
-};
-function isReactRefreshBoundary(exports) {
-    if (Refresh.isLikelyComponentType(exports)) return true;
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    return false;
-    var hasExports = false;
-    var areAllExportsComponents = true;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        hasExports = true;
-        if (key === "__esModule") continue;
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) // Don't invoke getters for CJS as they may have side effects.
-        return false;
-        var exportValue = exports[key];
-        if (!Refresh.isLikelyComponentType(exportValue)) areAllExportsComponents = false;
-    }
-    return hasExports && areAllExportsComponents;
-}
-function shouldInvalidateReactRefreshBoundary(prevExports, nextExports) {
-    var prevSignature = getRefreshBoundarySignature(prevExports);
-    var nextSignature = getRefreshBoundarySignature(nextExports);
-    if (prevSignature.length !== nextSignature.length) return true;
-    for(var i = 0; i < nextSignature.length; i++){
-        if (prevSignature[i] !== nextSignature[i]) return true;
-    }
-    return false;
-} // When this signature changes, it's unsafe to stop at this refresh boundary.
-function getRefreshBoundarySignature(exports) {
-    var signature = [];
-    signature.push(Refresh.getFamilyByType(exports));
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    // (This is important for legacy environments.)
-    return signature;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        if (key === "__esModule") continue;
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) continue;
-        var exportValue = exports[key];
-        signature.push(key);
-        signature.push(Refresh.getFamilyByType(exportValue));
-    }
-    return signature;
-}
-function registerExportsForReactRefresh(module1) {
-    var exports = module1.exports, id = module1.id;
-    Refresh.register(exports, id + " %exports%");
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    // (This is important for legacy environments.)
-    return;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) continue;
-        var exportValue = exports[key];
-        Refresh.register(exportValue, id + " %exports% " + key);
-    }
-}
-
-},{"react-refresh/runtime":"7LnTi"}],"7wKI2":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","prop-types":"7wKI2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"7wKI2":[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- */ var ReactIs = require("react-is");
+ */ var ReactIs = require("29743cc4881e172");
 // By explicitly using `prop-types` you are opting into new development behavior.
 // http://fb.me/prop-types-in-prod
 var throwOnDirectAccess = true;
-module.exports = require("./factoryWithTypeCheckers")(ReactIs.isElement, throwOnDirectAccess);
+module.exports = require("1c43719a2e4fa592")(ReactIs.isElement, throwOnDirectAccess);
 
-},{"react-is":"7EuwB","./factoryWithTypeCheckers":"bBUgD"}],"7EuwB":[function(require,module,exports) {
+},{"29743cc4881e172":"7EuwB","1c43719a2e4fa592":"bBUgD"}],"7EuwB":[function(require,module,exports) {
 "use strict";
-module.exports = require("./cjs/react-is.development.js");
+module.exports = require("63d2d40bd17b9be5");
 
-},{"./cjs/react-is.development.js":"5DsXl"}],"5DsXl":[function(require,module,exports) {
+},{"63d2d40bd17b9be5":"5DsXl"}],"5DsXl":[function(require,module,exports) {
 /** @license React v16.13.1
  * react-is.development.js
  *
@@ -27435,11 +27296,11 @@ module.exports = require("./cjs/react-is.development.js");
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */ "use strict";
-var ReactIs = require("react-is");
-var assign = require("object-assign");
-var ReactPropTypesSecret = require("./lib/ReactPropTypesSecret");
-var has = require("./lib/has");
-var checkPropTypes = require("./checkPropTypes");
+var ReactIs = require("cb4b31f2882cf805");
+var assign = require("8e385d98efcf524a");
+var ReactPropTypesSecret = require("8234f6b37551f4c3");
+var has = require("a9c2568fa63df474");
+var checkPropTypes = require("20ecdb2d251b55e4");
 var printWarning = function() {};
 printWarning = function(text) {
     var message = "Warning: " + text;
@@ -27866,7 +27727,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
     return ReactPropTypes;
 };
 
-},{"react-is":"7EuwB","object-assign":"7OXxh","./lib/ReactPropTypesSecret":"jZTZJ","./lib/has":"fqKuf","./checkPropTypes":"5VwyJ"}],"7OXxh":[function(require,module,exports) {
+},{"cb4b31f2882cf805":"7EuwB","8e385d98efcf524a":"7OXxh","8234f6b37551f4c3":"jZTZJ","a9c2568fa63df474":"fqKuf","20ecdb2d251b55e4":"5VwyJ"}],"7OXxh":[function(require,module,exports) {
 /*
 object-assign
 (c) Sindre Sorhus
@@ -27942,9 +27803,9 @@ module.exports = Function.call.bind(Object.prototype.hasOwnProperty);
  * LICENSE file in the root directory of this source tree.
  */ "use strict";
 var printWarning = function() {};
-var ReactPropTypesSecret = require("./lib/ReactPropTypesSecret");
+var ReactPropTypesSecret = require("3d8f8070e58b1638");
 var loggedTypeFailures = {};
-var has = require("./lib/has");
+var has = require("1d07b9bbc40f31fb");
 printWarning = function(text) {
     var message = "Warning: " + text;
     if (typeof console !== "undefined") console.error(message);
@@ -28002,7 +27863,170 @@ printWarning = function(text) {
 };
 module.exports = checkPropTypes;
 
-},{"./lib/ReactPropTypesSecret":"jZTZJ","./lib/has":"fqKuf"}],"ggaUx":[function(require,module,exports) {
+},{"3d8f8070e58b1638":"jZTZJ","1d07b9bbc40f31fb":"fqKuf"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"km3Ru":[function(require,module,exports) {
+"use strict";
+var Refresh = require("78769d4086b9518d");
+function debounce(func, delay) {
+    {
+        let timeout = undefined;
+        let lastTime = 0;
+        return function(args) {
+            // Call immediately if last call was more than the delay ago.
+            // Otherwise, set a timeout. This means the first call is fast
+            // (for the common case of a single update), and subsequent updates
+            // are batched.
+            let now = Date.now();
+            if (now - lastTime > delay) {
+                lastTime = now;
+                func.call(null, args);
+            } else {
+                clearTimeout(timeout);
+                timeout = setTimeout(function() {
+                    timeout = undefined;
+                    lastTime = Date.now();
+                    func.call(null, args);
+                }, delay);
+            }
+        };
+    }
+}
+var enqueueUpdate = debounce(function() {
+    Refresh.performReactRefresh();
+}, 30); // Everthing below is either adapted or copied from
+// https://github.com/facebook/metro/blob/61de16bd1edd7e738dd0311c89555a644023ab2d/packages/metro/src/lib/polyfills/require.js
+// MIT License - Copyright (c) Facebook, Inc. and its affiliates.
+module.exports.prelude = function(module1) {
+    window.$RefreshReg$ = function(type, id) {
+        Refresh.register(type, module1.id + " " + id);
+    };
+    window.$RefreshSig$ = Refresh.createSignatureFunctionForTransform;
+};
+module.exports.postlude = function(module1) {
+    if (isReactRefreshBoundary(module1.exports)) {
+        registerExportsForReactRefresh(module1);
+        if (module1.hot) {
+            module1.hot.dispose(function(data) {
+                if (Refresh.hasUnrecoverableErrors()) window.location.reload();
+                data.prevExports = module1.exports;
+            });
+            module1.hot.accept(function(getParents) {
+                var prevExports = module1.hot.data.prevExports;
+                var nextExports = module1.exports; // Since we just executed the code for it, it's possible
+                // that the new exports make it ineligible for being a boundary.
+                var isNoLongerABoundary = !isReactRefreshBoundary(nextExports); // It can also become ineligible if its exports are incompatible
+                // with the previous exports.
+                // For example, if you add/remove/change exports, we'll want
+                // to re-execute the importing modules, and force those components
+                // to re-render. Similarly, if you convert a class component
+                // to a function, we want to invalidate the boundary.
+                var didInvalidate = shouldInvalidateReactRefreshBoundary(prevExports, nextExports);
+                if (isNoLongerABoundary || didInvalidate) {
+                    // We'll be conservative. The only case in which we won't do a full
+                    // reload is if all parent modules are also refresh boundaries.
+                    // In that case we'll add them to the current queue.
+                    var parents = getParents();
+                    if (parents.length === 0) {
+                        // Looks like we bubbled to the root. Can't recover from that.
+                        window.location.reload();
+                        return;
+                    }
+                    return parents;
+                }
+                enqueueUpdate();
+            });
+        }
+    }
+};
+function isReactRefreshBoundary(exports) {
+    if (Refresh.isLikelyComponentType(exports)) return true;
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    return false;
+    var hasExports = false;
+    var areAllExportsComponents = true;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        hasExports = true;
+        if (key === "__esModule") continue;
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) // Don't invoke getters for CJS as they may have side effects.
+        return false;
+        var exportValue = exports[key];
+        if (!Refresh.isLikelyComponentType(exportValue)) areAllExportsComponents = false;
+    }
+    return hasExports && areAllExportsComponents;
+}
+function shouldInvalidateReactRefreshBoundary(prevExports, nextExports) {
+    var prevSignature = getRefreshBoundarySignature(prevExports);
+    var nextSignature = getRefreshBoundarySignature(nextExports);
+    if (prevSignature.length !== nextSignature.length) return true;
+    for(var i = 0; i < nextSignature.length; i++){
+        if (prevSignature[i] !== nextSignature[i]) return true;
+    }
+    return false;
+} // When this signature changes, it's unsafe to stop at this refresh boundary.
+function getRefreshBoundarySignature(exports) {
+    var signature = [];
+    signature.push(Refresh.getFamilyByType(exports));
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    // (This is important for legacy environments.)
+    return signature;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        if (key === "__esModule") continue;
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) continue;
+        var exportValue = exports[key];
+        signature.push(key);
+        signature.push(Refresh.getFamilyByType(exportValue));
+    }
+    return signature;
+}
+function registerExportsForReactRefresh(module1) {
+    var exports = module1.exports, id = module1.id;
+    Refresh.register(exports, id + " %exports%");
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    // (This is important for legacy environments.)
+    return;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) continue;
+        var exportValue = exports[key];
+        Refresh.register(exportValue, id + " %exports% " + key);
+    }
+}
+
+},{"78769d4086b9518d":"786KC"}],"ggaUx":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$e9f6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -28097,6 +28121,6 @@ $RefreshReg$(_c, "MovieView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"aRELh","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"6ZIFf"}],"lJZlQ":[function() {},{}]},["k65zC","fcitV","d8Dch"], "d8Dch", "parcelRequired0fe")
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"lJZlQ":[function() {},{}]},["1xC6H","7a1Sg","d8Dch"], "d8Dch", "parcelRequired0fe")
 
 //# sourceMappingURL=index.b4b6dfad.js.map
