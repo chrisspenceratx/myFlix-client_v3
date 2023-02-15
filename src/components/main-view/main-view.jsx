@@ -22,7 +22,7 @@ export const MainView = () => {
             title: doc.title,
             image:
 `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`,
-            author: doc.author_name?.[0]
+            director: doc.director_name?.[0]
           };
         });
 
