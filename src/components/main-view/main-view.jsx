@@ -11,7 +11,7 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
-    fetch("https://myflixfinder.herokuapp.com/movies")
+    fetch("https://myflixfinder.herokuapp.com")
     // fetch("https://openlibrary.org/search.json?q=star+wars")
     //trying to hook up movie api from heroku site/..above is old book example/
       .then((response) => response.json())
