@@ -13,7 +13,8 @@ export const MainView = () => {
   useEffect(() => {
     fetch("https://myflixfinder.herokuapp.com")
     // fetch("https://openlibrary.org/search.json?q=star+wars")
-    //trying to hook up movie api from heroku site/..above is old book example/
+    //trying to hook up movie api from heroku site/..above is old book example
+    //this commit: i'mtrying to connect apis so commenting out stuff//
       .then((response) => response.json())
       .then((data) => {
         const moviesFromApi = data.docs.map((doc) => {
