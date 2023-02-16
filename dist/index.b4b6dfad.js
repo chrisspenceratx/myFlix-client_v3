@@ -27019,7 +27019,7 @@ const MainView = ()=>{
     const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     (0, _react.useEffect)(()=>{
-        fetch("https://myflixfinder.herokuapp.com/movies/search.json?q=star+wars").then((response)=>response.json()).then((data)=>{
+        fetch("https://myflixfinder.herokuapp.com/movies/search.json?q=movies").then((response)=>response.json()).then((data)=>{
             console.log("books from api:", data);
         });
     }, []);
