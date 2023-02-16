@@ -11,24 +11,10 @@ export const MainView = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   useEffect(() => {
-    fetch("https://myflixfinder.herokuapp.com")
-    // fetch("https://openlibrary.org/search.json?q=star+wars")
-    //trying to hook up movie api from heroku site/..above is old book example
-    //this commit: i'mtrying to connect apis so commenting out stuff//
+    fetch("https://myflixfinder.herokuapp.com/movies/search.json?q=star+wars")
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.docs.map((doc) => {
-          return {
-            id: doc.key,
-            title: doc.title,
-            image:
-`https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`,
-            director: doc.director_name?.[0]
-          };
-        });
-
-        setMovies (moviesFromApi);
-        
+        console.log("books from api:", data);
       });
   }, []);
 
