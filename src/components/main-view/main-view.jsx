@@ -10,13 +10,42 @@ export const MainView = () => {
 
   const [selectedMovie, setSelectedMovie] = useState(null);
 
+  //this is bookcard example from codesandbox//
   useEffect(() => {
     fetch("https://myflixfinder.herokuapp.com/movies/search.json?q=movies")
       .then((response) => response.json())
       .then((data) => {
-        console.log("movies from api:", data);
+        const moviesFromApi = data.docs.map((doc) => {
+          return {
+            id: doc.key,
+            title: doc.title,
+          };
+        });
+        setMovies (moviesFromApi);
       });
   }, []);
+       
+//   /this is bookcard example from codesandbox//
+//   useEffect(() => {
+//     fetch("https://openlibrary.org/search.json?q=star+wars")
+//       .then((response) => response.json())
+//       .then((data) => {
+//         const moviesFromApi = data.docs.map((doc) => {
+//           return {
+//             id: doc.key,
+//             title: doc.title,
+//             image:
+// `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`,
+//             director: doc.director_name?.[0]
+//           };
+//         });
+//         setMovies (moviesFromApi);
+//       });
+//   }, []);
+       
+        
+
+    
 
    if (selectedMovie) {
     return (
