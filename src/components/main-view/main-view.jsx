@@ -14,7 +14,7 @@ export const MainView = () => {
     fetch("https://myflixfinder.herokuapp.com/movies/search.json?q=movies")
       .then((response) => response.json())
       .then((data) => {
-        console.log("books from api:", data);
+        console.log("movies from api:", data);
       });
   }, []);
 
