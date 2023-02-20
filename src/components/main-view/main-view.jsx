@@ -3,22 +3,20 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([
-
-    
+  const [movies, setMovies] = useState([  
   ]);
 
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   //this is bookcard example from codesandbox//
   useEffect(() => {
-    fetch("https://myflixfinder.herokuapp.com/movies/search.json?q=movies")
+    fetch("https://myflixfinder.herokuapp.com/movies")
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.docs.map((doc) => {
+        const moviesFromApi = data.movies.map((movie) => {
           return {
-            id: doc.key,
-            title: doc.title,
+            id: movie.key,
+            title: movie.title,
           };
         });
         setMovies (moviesFromApi);
