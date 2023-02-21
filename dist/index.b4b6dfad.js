@@ -27011,6 +27011,7 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "MainView", ()=>MainView);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
 var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
 var _s = $RefreshSig$();
@@ -27020,16 +27021,19 @@ const MainView = ()=>{
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     //this is bookcard example from codesandbox//
     (0, _react.useEffect)(()=>{
-        fetch("https://myflixfinder.herokuapp.com/search.json?q=movies").then((response)=>response.json()).then((data)=>{
-            const moviesFromApi = data.movies.map((movie)=>{
+        fetch("https://myflixfinder.herokuapp.com/movies", {}).then((response)=>response.json()).then((data)=>{
+            const moviesFromApi = data.map((doc)=>{
                 return {
-                    id: movie.key,
-                    title: movie.title
+                    id: doc._id,
+                    title: doc.Title,
+                    director: doc.director_name?.[0]
                 };
             });
             setMovies(moviesFromApi);
+        }).catch((error)=>{
+            console.log(error);
         });
-    }, []);
+    });
     //   /this is bookcard example from codesandbox//
     //   useEffect(() => {
     //     fetch("https://openlibrary.org/search.json?q=star+wars")
@@ -27047,19 +27051,24 @@ const MainView = ()=>{
     //         setMovies (moviesFromApi);
     //       });
     //   }, []);
+    // componentDidMount() {axios
+    // .fetch("https://openlibrary.org/search.json?q=star+wars")
+    // .then((response) => {
+    // this.setState({
+    // movies: response.data
     if (selectedMovie) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieView.MovieView), {
         movie: selectedMovie,
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 49,
+        lineNumber: 67,
         columnNumber: 7
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 54,
+        lineNumber: 72,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27070,12 +27079,12 @@ const MainView = ()=>{
                 }
             }, movie.id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 60,
+                lineNumber: 78,
                 columnNumber: 9
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 58,
+        lineNumber: 76,
         columnNumber: 5
     }, undefined);
 };
@@ -27089,7 +27098,7 @@ $RefreshReg$(_c, "MainView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx"}],"gkKU3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq","../movie-card/movie-card":"bwuIu","../movie-view/movie-view":"ggaUx","react/jsx-dev-runtime":"iTorj"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a

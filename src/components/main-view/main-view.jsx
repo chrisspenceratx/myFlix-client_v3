@@ -1,26 +1,37 @@
+import React from 'react';
 import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
-
   const [selectedMovie, setSelectedMovie] = useState(null);
+
 
   //this is bookcard example from codesandbox//
   useEffect(() => {
-    fetch("https://myflixfinder.herokuapp.com/search.json?q=movies")
+    fetch('https://myflixfinder.herokuapp.com/movies', {
+  
+    })
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.movies.map((movie) => {
+        const moviesFromApi = data.map((doc) => {
           return {
-            id: movie.key,
-            title: movie.title,
+            id: doc._id,
+            title: doc.Title,
+            director: doc.director_name?.[0]
           };
         });
-        setMovies (moviesFromApi);
+        setMovies(moviesFromApi);
+   
+      })
+      .catch((error) => {
+        console.log(error);
       });
-  }, []);
+  });
+
+
+  
        
 //   /this is bookcard example from codesandbox//
 //   useEffect(() => {
@@ -42,7 +53,14 @@ export const MainView = () => {
        
         
 
-    
+
+// componentDidMount() {axios
+// .fetch("https://openlibrary.org/search.json?q=star+wars")
+// .then((response) => {
+// this.setState({
+// movies: response.data
+
+  
 
    if (selectedMovie) {
     return (
