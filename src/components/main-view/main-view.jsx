@@ -2,10 +2,13 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { LoginView } from "../login-view/login-view";
+
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [user, setUser] = useState(null);
 
 
   //this is bookcard example from codesandbox//
@@ -15,7 +18,7 @@ export const MainView = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.map((doc) => {
+        const moviesFromApi = data.docs.map((doc) => {
           return {
             id: doc._id,
             title: doc.Title,
@@ -31,36 +34,9 @@ export const MainView = () => {
   });
 
 
-  
-       
-//   /this is bookcard example from codesandbox//
-//   useEffect(() => {
-//     fetch("https://openlibrary.org/search.json?q=star+wars")
-//       .then((response) => response.json())
-//       .then((data) => {
-//         const moviesFromApi = data.docs.map((doc) => {
-//           return {
-//             id: doc.key,
-//             title: doc.title,
-//             image:
-// `https://covers.openlibrary.org/b/id/${doc.cover_i}-L.jpg`,
-//             director: doc.director_name?.[0]
-//           };
-//         });
-//         setMovies (moviesFromApi);
-//       });
-//   }, []);
-       
-        
-
-
-// componentDidMount() {axios
-// .fetch("https://openlibrary.org/search.json?q=star+wars")
-// .then((response) => {
-// this.setState({
-// movies: response.data
-
-  
+  if (!user) {
+    return <LoginView />;
+  }
 
    if (selectedMovie) {
     return (
