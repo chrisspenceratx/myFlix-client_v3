@@ -36,8 +36,17 @@ export const MainView = () => {
   });
 
 
+  const [token, setToken] = useState(null);
+
   if (!user) {
-    return <LoginView />;
+    return (
+      <LoginView
+        onLoggedIn={(user, token) => {
+          setUser(user);
+          setToken(token);
+        }}
+      />
+    );
   }
 
    if (selectedMovie) {
