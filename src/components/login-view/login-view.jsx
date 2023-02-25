@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 export const LoginView = ({ onLoggedIn }) => {
@@ -27,6 +27,9 @@ export const LoginView = ({ onLoggedIn }) => {
         .then((data) => {
           console.log("Login response: ", data);
           if (data.user) {
+            //keeps login recurring whether app is running or not//
+            localStorage.setItem("user", JSON.stringify(data.user));
+            localStorage.setItem("token", data.token);
             onLoggedIn(data.user, data.token);
           } else {
             alert("No such user");
@@ -61,4 +64,4 @@ export const LoginView = ({ onLoggedIn }) => {
         </form>
       );
     };
-    
+

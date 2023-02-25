@@ -35,7 +35,23 @@ export const MainView = () => {
       });
   });
 
+  //unclear about this second useEffect placement.  Everything below//
+  // useEffect(() => {
+  //   if (!token) return;
+ 
+  //   fetch("..../movies", {
+  //     headers: { Authorization: `Bearer ${token}` },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((movies) => {
+  //       setMovies(movies);
+ 
+  //     });
+  // }, [token]);
+//everything above to previous comment//
 
+
+//unclear about this placement below.  under 'authentication measures' in 3.5//
   const [token, setToken] = useState(null);
 
   if (!user) {
@@ -48,6 +64,12 @@ export const MainView = () => {
       />
     );
   }
+//through this point.  everything in between.//
+
+//unclear below too//
+<button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
+//unclear above too//
+
 
    if (selectedMovie) {
     return (
