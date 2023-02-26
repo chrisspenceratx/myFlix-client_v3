@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
+import { SignupView } from '../signup-view/SignupView';
 
 
 export const MainView = () => {
@@ -65,6 +66,7 @@ export const MainView = () => {
     );
   }
 //through this point.  everything in between.//
+
 
 //unclear below too//
 <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
