@@ -14,7 +14,6 @@ export const MovieCard = ({ movie, onMovieClick }) => {
   );
 };
 
-// comment written to test new branch //
 // Here is where we define all the props constraints for the MovieCard
 MovieCard.propTypes = {
   movie: PropTypes.shape({
