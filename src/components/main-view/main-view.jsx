@@ -17,14 +17,24 @@ export const MainView = () => {
   
 
 
-  //this is bookcard example from codesandbox.  Another test//
+  // useEffect hook allows React to perform side effects in component e.g fetching data
   useEffect(() => {
+    if (!token) {
+      return;
+    }
+    // set loading before sending API request
+    setLoading(true);
     fetch('https://myflixfinder.herokuapp.com/movies', {
-  
+      headers: {Authorization: `Bearer ${token}`}
+
     })
       .then((response) => response.json())
       .then((data) => {
+        //UNSURE CHECK LASTER could be this below//
+        //        const moviesFromApi = data.map((movie) => {//
+
         const moviesFromApi = data.docs.map((doc) => {
+          setLoading(false);
           return {
             id: doc._id,
             title: doc.Title,
@@ -34,10 +44,9 @@ export const MainView = () => {
         setMovies(moviesFromApi);
    
       })
-      .catch((error) => {
-        console.log(error);
-      });
-  });
+    } ,[token])
+     
+  // });       ----maybe uncomment
 
   //unclear about this second useEffect placement.  Everything below/.  nother test/
   // useEffect(() => {
@@ -59,12 +68,15 @@ export const MainView = () => {
 
   if (!user) {
     return (
+      <>
+      
       <LoginView
         onLoggedIn={(user, token) => {
           setUser(user);
           setToken(token);
-        }}
-      />
+        }} />
+        or <SignupView />
+        </>
     );
   }
 //through this point.  everything in between.//
@@ -86,10 +98,21 @@ export const MainView = () => {
   }
 
   return (
+    // conditional rendering for loading statment
+    loading ? (
+      <p>Loading...</p>
+    ) : !movies || !movies.length ? (
+      <p>No movies found</p>
+    ) : (
     <div>
+      <button onClick={() => { setUser(null); setToken(null); localStorage.clear();
+      }}
+    > Logout
+    </button>
+    
       {movies.map((movie) => (
         <MovieCard
-          key={movie.id}
+          key={movie._id}
           movie={movie}
           onMovieClick={(newSelectedMovie) => {
             setSelectedMovie(newSelectedMovie);
@@ -97,5 +120,5 @@ export const MainView = () => {
         />
       ))}
     </div>
-  );
+  ));
 }

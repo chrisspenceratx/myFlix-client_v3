@@ -27026,10 +27026,20 @@ const MainView = ()=>{
     const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
     const [loading, setLoading] = (0, _react.useState)(false);
-    //this is bookcard example from codesandbox.  Another test//
+    // useEffect hook allows React to perform side effects in component e.g fetching data
     (0, _react.useEffect)(()=>{
-        fetch("https://myflixfinder.herokuapp.com/movies", {}).then((response)=>response.json()).then((data)=>{
+        if (!token) return;
+        // set loading before sending API request
+        setLoading(true);
+        fetch("https://myflixfinder.herokuapp.com/movies", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>response.json()).then((data)=>{
+            //UNSURE CHECK LASTER could be this below//
+            //        const moviesFromApi = data.map((movie) => {//
             const moviesFromApi = data.docs.map((doc)=>{
+                setLoading(false);
                 return {
                     id: doc._id,
                     title: doc.Title,
@@ -27037,10 +27047,11 @@ const MainView = ()=>{
                 };
             });
             setMovies(moviesFromApi);
-        }).catch((error)=>{
-            console.log(error);
         });
-    });
+    }, [
+        token
+    ]);
+    // });       ----maybe uncomment
     //unclear about this second useEffect placement.  Everything below//
     // useEffect(() => {
     //   if (!token) return;
@@ -27054,16 +27065,26 @@ const MainView = ()=>{
     // }, [token]);
     //everything above to previous comment//
     //unclear about this placement below.  under 'authentication measures' in 3.5//
-    if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
-        onLoggedIn: (user, token)=>{
-            setUser(user);
-            setToken(token);
-        }
-    }, void 0, false, {
-        fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 62,
-        columnNumber: 7
-    }, undefined);
+    if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
+                onLoggedIn: (user, token)=>{
+                    setUser(user);
+                    setToken(token);
+                }
+            }, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 73,
+                columnNumber: 7
+            }, undefined),
+            "or ",
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 78,
+                columnNumber: 12
+            }, undefined)
+        ]
+    }, void 0, true);
     //through this point.  everything in between.//
     //unclear below too//
     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27075,7 +27096,7 @@ const MainView = ()=>{
         children: "Logout"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 74,
+        lineNumber: 86,
         columnNumber: 1
     }, undefined);
     //unclear above too//
@@ -27084,32 +27105,59 @@ const MainView = ()=>{
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 80,
+        lineNumber: 92,
         columnNumber: 7
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 85,
+        lineNumber: 97,
         columnNumber: 12
     }, undefined);
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
-                movie: movie,
-                onMovieClick: (newSelectedMovie)=>{
-                    setSelectedMovie(newSelectedMovie);
-                }
-            }, movie.id, false, {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 91,
-                columnNumber: 9
-            }, undefined))
+    return(// conditional rendering for loading statment
+    loading ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+        children: "Loading..."
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 89,
+        lineNumber: 103,
+        columnNumber: 7
+    }, undefined) : !movies || !movies.length ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+        children: "No movies found"
+    }, void 0, false, {
+        fileName: "src/components/main-view/main-view.jsx",
+        lineNumber: 105,
+        columnNumber: 7
+    }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: [
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                onClick: ()=>{
+                    setUser(null);
+                    setToken(null);
+                    localStorage.clear();
+                },
+                children: " Logout"
+            }, void 0, false, {
+                fileName: "src/components/main-view/main-view.jsx",
+                lineNumber: 108,
+                columnNumber: 7
+            }, undefined),
+            movies.map((movie)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _movieCard.MovieCard), {
+                    movie: movie,
+                    onMovieClick: (newSelectedMovie)=>{
+                        setSelectedMovie(newSelectedMovie);
+                    }
+                }, movie._id, false, {
+                    fileName: "src/components/main-view/main-view.jsx",
+                    lineNumber: 114,
+                    columnNumber: 9
+                }, undefined))
+        ]
+    }, void 0, true, {
+        fileName: "src/components/main-view/main-view.jsx",
+        lineNumber: 107,
         columnNumber: 5
-    }, undefined);
+    }, undefined));
 };
 _s(MainView, "CPZ90wseP+bVOPdxYkPMi396Gvw=");
 _c = MainView;
