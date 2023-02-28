@@ -7,11 +7,14 @@ import { SignupView } from '../signup-view/signup-view';
 
 
 export const MainView = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
+  const [user, setUser] = useState(storedUser? storedUser : null);
+  const [token, setToken] = useState(storedToken? storedToken : null);
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [user, setUser] = useState(null);
-  const [username, setUsername] = useState("");
-
+  const [loading, setLoading] = useState(false);
+  
 
 
   //this is bookcard example from codesandbox.  Another test//
@@ -53,7 +56,6 @@ export const MainView = () => {
 
 
 //unclear about this placement below.  under 'authentication measures' in 3.5//
-  const [token, setToken] = useState(null);
 
   if (!user) {
     return (

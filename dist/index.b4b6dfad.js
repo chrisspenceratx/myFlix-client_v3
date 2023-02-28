@@ -27019,11 +27019,14 @@ var _signupView = require("../signup-view/signup-view");
 var _s = $RefreshSig$();
 const MainView = ()=>{
     _s();
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedToken = localStorage.getItem("token");
+    const [user, setUser] = (0, _react.useState)(storedUser ? storedUser : null);
+    const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     const [movies, setMovies] = (0, _react.useState)([]);
     const [selectedMovie, setSelectedMovie] = (0, _react.useState)(null);
-    const [user, setUser] = (0, _react.useState)(null);
-    const [username, setUsername] = (0, _react.useState)("");
-    //this is bookcard example from codesandbox//
+    const [loading, setLoading] = (0, _react.useState)(false);
+    //this is bookcard example from codesandbox.  Another test//
     (0, _react.useEffect)(()=>{
         fetch("https://myflixfinder.herokuapp.com/movies", {}).then((response)=>response.json()).then((data)=>{
             const moviesFromApi = data.docs.map((doc)=>{
@@ -27051,7 +27054,6 @@ const MainView = ()=>{
     // }, [token]);
     //everything above to previous comment//
     //unclear about this placement below.  under 'authentication measures' in 3.5//
-    const [token, setToken] = (0, _react.useState)(null);
     if (!user) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _loginView.LoginView), {
         onLoggedIn: (user, token)=>{
             setUser(user);
@@ -27059,7 +27061,7 @@ const MainView = ()=>{
         }
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 60,
+        lineNumber: 62,
         columnNumber: 7
     }, undefined);
     //through this point.  everything in between.//
@@ -27073,7 +27075,7 @@ const MainView = ()=>{
         children: "Logout"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 72,
+        lineNumber: 74,
         columnNumber: 1
     }, undefined);
     //unclear above too//
@@ -27082,14 +27084,14 @@ const MainView = ()=>{
         onBackClick: ()=>setSelectedMovie(null)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 78,
+        lineNumber: 80,
         columnNumber: 7
     }, undefined);
     if (movies.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "The list is empty!"
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 83,
+        lineNumber: 85,
         columnNumber: 12
     }, undefined);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27100,16 +27102,16 @@ const MainView = ()=>{
                 }
             }, movie.id, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 89,
+                lineNumber: 91,
                 columnNumber: 9
             }, undefined))
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 87,
+        lineNumber: 89,
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "IhaU1Wejwu97mvAGN52pXs12/ac=");
+_s(MainView, "CPZ90wseP+bVOPdxYkPMi396Gvw=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
