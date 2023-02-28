@@ -36,7 +36,7 @@ export const MainView = () => {
       });
   });
 
-  //unclear about this second useEffect placement.  Everything below//
+  //unclear about this second useEffect placement.  Everything below/.  nother test/
   // useEffect(() => {
   //   if (!token) return;
  
