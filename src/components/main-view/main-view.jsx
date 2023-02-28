@@ -52,7 +52,7 @@ export const MainView = () => {
 //everything above to previous comment//
 
 
-//unclear about this placement below.  under 'authentication measures' in 3.5//
+//unclear about this placement below.  under 'authentication measures' in 3.5.testingagain//
   const [token, setToken] = useState(null);
 
   if (!user) {
