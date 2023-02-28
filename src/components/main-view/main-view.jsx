@@ -36,7 +36,7 @@ export const MainView = () => {
       });
   });
 
-  //unclear about this second useEffect placement.  Everything below/.  nother test/
+  //unclear about this second useEffect placement.  Everything below//
   // useEffect(() => {
   //   if (!token) return;
  
@@ -52,7 +52,7 @@ export const MainView = () => {
 //everything above to previous comment//
 
 
-//unclear about this placement below.  under 'authentication measures' in 3.5.testingagain//
+//unclear about this placement below.  under 'authentication measures' in 3.5//
   const [token, setToken] = useState(null);
 
   if (!user) {
