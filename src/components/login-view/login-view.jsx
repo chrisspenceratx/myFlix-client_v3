@@ -12,18 +12,13 @@ export const LoginView = ({ onLoggedIn }) => {
       event.preventDefault();
   
       const data = {
-        Username: username,
-        Password: password,
-        Email: email,
-        Birthday: birthday
+        access: username,
+        secret: password
       };
   
-      fetch("https://myflixfinder.herokuapp.com/login", {
+      fetch("https://openlibrary.org/account/login.json", {
         method: "POST",
         body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
-        },
       })
         .then((response) => response.json())
         .then((data) => {

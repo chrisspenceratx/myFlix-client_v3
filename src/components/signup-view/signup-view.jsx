@@ -6,9 +6,38 @@ export const SignupView = () => {
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
 
-  const handleSubmit = (event) => {};
+// validates users signing up//
+  const handleSubmit = (event) => {
+    
+    event.preventDefault(); 
+    
+    const data = {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday
+    };
 
+    fetch('https://myflixfinder.herokuapp.com/movies', {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then((response) => {
+      if (response.ok) {
+        alert("Signup successful");
+        window.location.reload();
+
+      } else {
+        alert("Signup failed");
+      }
+    });
+  }; 
+
+  // signup form with submit button
   return (
+    // handleSubmit callsback onSubmit, tells the login API to validate user and password
     <form onSubmit={handleSubmit}>
       <label>
         Username:
@@ -17,7 +46,7 @@ export const SignupView = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
-          minLength="3"
+          minLength="5"
         />
       </label>
       <label>
@@ -50,4 +79,4 @@ export const SignupView = () => {
       <button type="submit">Submit</button>
     </form>
   );
-};
+}; 

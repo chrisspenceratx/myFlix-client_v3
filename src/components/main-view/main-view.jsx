@@ -13,7 +13,6 @@ export const MainView = () => {
   const [token, setToken] = useState(storedToken? storedToken : null);
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [loading, setLoading] = useState(false);
   
 
 
@@ -22,21 +21,21 @@ export const MainView = () => {
     if (!token) {
       return;
     }
-    // set loading before sending API request
-    setLoading(true);
+  
+
     fetch('https://myflixfinder.herokuapp.com/movies', {
       headers: {Authorization: `Bearer ${token}`}
 
     })
       .then((response) => response.json())
       .then((data) => {
-        //UNSURE CHECK LASTER could be this below//
-        //        const moviesFromApi = data.map((movie) => {//
+        console.log(data);
 
         const moviesFromApi = data.docs.map((doc) => {
           setLoading(false);
           return {
             id: doc._id,
+            // id:doc.key  instead possibly//
             title: doc.Title,
             director: doc.director_name?.[0]
           };
@@ -48,7 +47,7 @@ export const MainView = () => {
      
   // });       ----maybe uncomment
 
-  //unclear about this second useEffect placement.  Everything below/.  nother test/
+  //unclear about this second useEffect placement.  Everything below//
   // useEffect(() => {
   //   if (!token) return;
  
@@ -87,38 +86,47 @@ export const MainView = () => {
 //unclear above too//
 
 
-   if (selectedMovie) {
-    return (
-      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-    );
-  }
-
-  if (movies.length === 0) {
-    return <div>The list is empty!</div>;
-  }
-
+if (selectedMovie) {
   return (
-    // conditional rendering for loading statment
-    loading ? (
-      <p>Loading...</p>
-    ) : !movies || !movies.length ? (
-      <p>No movies found</p>
-    ) : (
-    <div>
-      <button onClick={() => { setUser(null); setToken(null); localStorage.clear();
-      }}
+    <>
+    <button onClick={() => { setUser(null); setToken(null); localStorage.clear();
+    }}
+    > Logout 
+    </button>
+    <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+    </>
+  );
+}
+
+if (movies.length === 0) {
+  return (
+    <>
+    <button onClick={() => { setUser(null); setToken(null); localStorage.clear();
+    }}
     > Logout
     </button>
-    
-      {movies.map((movie) => (
-        <MovieCard
-          key={movie._id}
-          movie={movie}
-          onMovieClick={(newSelectedMovie) => {
-            setSelectedMovie(newSelectedMovie);
-          }}
-        />
-      ))}
-    </div>
-  ));
+    <div>The list is empty!</div>
+  </>
+  );
+}
+
+
+
+eturn (
+  <div>
+    <button onClick={() => { setUser(null); setToken(null); localStorage.clear();
+    }}
+  > Logout
+  </button>
+    {movies.map((movie) => (
+      <MovieCard
+        key={movie._id}
+        movie={movie}
+        onMovieClick={(newSelectedMovie) => {
+          setSelectedMovie(newSelectedMovie);
+        }}
+      />
+    ))}
+  </div>
+);
 }
